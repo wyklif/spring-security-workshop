@@ -1,0 +1,21 @@
+package com.workshop.spring_security_workshop.service;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+public class EmailService {
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendVerificationEmail(String to, String subject, String text) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(text, true);
+        mailSender.send(mimeMessage);
+    }
+}
