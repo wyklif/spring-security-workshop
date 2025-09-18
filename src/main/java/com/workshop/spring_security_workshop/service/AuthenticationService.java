@@ -9,11 +9,12 @@ import jakarta.mail.MessagingException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
-
+@Service
 public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
@@ -98,7 +99,7 @@ public class AuthenticationService {
                 + "<p style=\"font-size: 16px;\">Please enter the verification code below to continue:</p>"
                 + "<div style=\"background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);\">"
                 + "<h3 style=\"color: #333;\">Verification Code:</h3>"
-                + "<p style=\"font-size: 18px; font-weight: bold; color: #007bff;\">" + verificationCode + "</p>"
+                + "<p style=\"font-size: 18px; font-weight: bold; color: #007bff;\"> VERIFICATION CODE" + verificationCode + "</p>"
                 + "</div>"
                 + "</div>"
                 + "</body>"
