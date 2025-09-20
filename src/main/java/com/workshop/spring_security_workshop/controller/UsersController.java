@@ -26,6 +26,8 @@ public class UsersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
+        System.out.println("Username : " + user.getUsername());
+
         return  ResponseEntity.ok(user);
     }
 

@@ -43,16 +43,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try{
             final String jwt = authorizationHeader.substring(7);
             final String userEmail = jwtService.extractUserName(jwt);
+            System.out.println(userEmail+"User Email");
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if(userEmail != null && authentication != null){
+            if(userEmail != null && authentication == null){
                 UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+                System.out.println(userDetails.getUsername()+" is username");
                 if (jwtService.isTokenValid(jwt, userDetails)) {
+                   System.out.println(userDetails.getUsername()+" is Valid");
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
+                //System.out.println("isnt Valid");
             }
-
             filterChain.doFilter(request, response);
         }catch (Exception e){
             handlerExceptionResolver.resolveException(request, response, null, e);
